@@ -3290,21 +3290,27 @@ a:hover {
 
 #header {
 	background-color: #0d0f14;
+	/* Dark overlay first, then the data analytics image */
 	background-image:
-		linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
-		url("images/overlay.png"),
-		url("images/download.jfif");
-	background-position: center, top left, center center;
-	background-repeat: no-repeat, repeat, no-repeat;
-	background-size: cover, auto, cover;
-	background-attachment: fixed, scroll, scroll;
+		linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.72) 0%,
+			rgba(0, 0, 0, 0.60) 50%,
+			rgba(0, 0, 0, 0.80) 100%
+		),
+		url("fffffff.jfif");
+	background-position: center, center center;
+	background-repeat: no-repeat, no-repeat;
+	background-size: cover, cover;
+	/* fixed on desktop so image stays put while sidebar content is static */
+	background-attachment: scroll, scroll;
 
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 	justify-content: flex-end;
 
-	color: rgba(255, 255, 255, 0.8);
+	color: rgba(255, 255, 255, 0.85);
 	height: 100%;
 	left: 0;
 	padding: 6em 4em;
@@ -3312,6 +3318,7 @@ a:hover {
 	text-align: right;
 	top: 0;
 	width: 35%;
+	overflow: hidden;
 }
 
 #header > * {
@@ -3325,18 +3332,19 @@ a:hover {
 }
 
 #header h1 {
-	color: rgba(255, 255, 255, 0.85) !important;
-	font-size: 1.35em;
+	color: rgba(255, 255, 255, 0.92) !important;
+	font-size: 1.2em;
 	line-height: 1.75em;
 	margin: 0;
 	font-weight: 400;
-	text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+	text-shadow: 1px 2px 8px rgba(0,0,0,0.85);
 }
 
 /* Gold highlight for name */
 #header h1 strong {
 	color: #f1c40f !important;
-	text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+	text-shadow: 1px 2px 8px rgba(0,0,0,0.9);
+	font-weight: 700;
 }
 
 #header strong, #header b {
@@ -3347,16 +3355,22 @@ a:hover {
 	color: #ffffff !important;
 }
 
-/* Avatar */
+/* ── Avatar — bigger and clearly visible ────────────────────────────────── */
 #header .image.avatar {
 	margin: 0 0 1.75em 0;
-	width: 7.5em;
+	width: 10em;        /* was 7.5em — noticeably larger */
+	display: block;
+	margin-left: auto;  /* right-align to match sidebar text-align:right */
 }
 
 #header .image.avatar img {
 	border-radius: 100%;
-	border: 3px solid #f1c40f;
-	box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
+	border: 4px solid #f1c40f;
+	box-shadow:
+		0 0 0 6px rgba(241, 196, 15, 0.15),
+		0 0 30px rgba(241, 196, 15, 0.35);
+	width: 100%;
+	display: block;
 }
 
 /* ── 5. Footer (sidebar footer icons) ───────────────────────────────────── */
@@ -3364,12 +3378,11 @@ a:hover {
 #footer {
 	background-color: #0d0f14;
 	background-image:
-		linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-		url("images/overlay.png"),
-		url("images/download.jfif");
-	background-position: center, top left, bottom center;
-	background-repeat: no-repeat, repeat, no-repeat;
-	background-size: cover, auto, cover;
+		linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+		url("fffffff.jfif");
+	background-position: center, bottom center;
+	background-repeat: no-repeat, no-repeat;
+	background-size: cover, cover;
 }
 
 #footer .icons a {
@@ -3582,7 +3595,7 @@ code {
 	}
 
 	#header h1 {
-		font-size: 1.1em;
+		font-size: 1em;
 	}
 
 	#header h1 br {
@@ -3591,6 +3604,11 @@ code {
 
 	#header > .inner {
 		margin-bottom: 0;
+	}
+
+	/* Scale avatar down slightly on medium-large screens */
+	#header .image.avatar {
+		width: 8em;
 	}
 
 	#main {
@@ -3603,15 +3621,20 @@ code {
 
 @media screen and (max-width: 980px) {
 	#header {
-		background-attachment: scroll, scroll, scroll;
-		background-position: center, top left, center center;
-		background-size: cover, auto, cover;
+		/* On mobile/tablet the sidebar becomes a top banner */
+		background-attachment: scroll, scroll;
+		background-position: center, center center;
+		background-size: cover, cover;
+		/* Give it a good tall height so the background image shows nicely */
+		min-height: 60vw;
+		max-height: 500px;
 		position: relative;
 		text-align: center;
 		align-items: center;
+		justify-content: flex-end;
 		width: 100%;
 		height: auto;
-		padding: 4em 3em;
+		padding: 5em 3em 4em 3em;
 		left: auto;
 		top: auto;
 	}
@@ -3621,6 +3644,17 @@ code {
 		flex-grow: 0;
 	}
 
+	/* Avatar: centered and a nice size for tablet */
+	#header .image.avatar {
+		width: 9em;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	#header h1 {
+		font-size: 1.25em;
+	}
+
 	#main {
 		margin-left: 0;
 		width: 100%;
@@ -3628,7 +3662,7 @@ code {
 	}
 
 	#footer {
-		background-attachment: scroll, scroll, scroll;
+		background-attachment: scroll, scroll;
 		position: relative;
 		text-align: center;
 		width: 100%;
@@ -3656,11 +3690,18 @@ code {
 
 @media screen and (max-width: 736px) {
 	#header {
-		padding: 2.25em 1.5em;
+		padding: 4em 1.5em 3em 1.5em;
+		min-height: 75vw;
+		max-height: 420px;
+	}
+
+	/* Avatar: comfortably sized on phones */
+	#header .image.avatar {
+		width: 7em;
 	}
 
 	#header h1 {
-		font-size: 1.2em;
+		font-size: 1.1em;
 	}
 
 	#footer {
@@ -3683,11 +3724,17 @@ code {
 
 @media screen and (max-width: 480px) {
 	#header {
-		padding: 4.5em 1.5em;
+		padding: 3.5em 1.25em 2.5em 1.25em;
+		min-height: 85vw;
+		max-height: 380px;
 	}
 
 	#header h1 br {
 		display: none;
+	}
+
+	#header .image.avatar {
+		width: 6em;
 	}
 
 	#footer .copyright li {
@@ -3698,4 +3745,3 @@ code {
 		padding-left: 0;
 	}
 }
-
